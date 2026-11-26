@@ -1,0 +1,257 @@
+{
+  "stable-unique": {
+    "category": "sequence",
+    "prompt": "Deduplicate integers in order of first appearance.",
+    "cases": [
+      {
+        "id": "non-sorted",
+        "args": [
+          [
+            9,
+            2,
+            9,
+            1
+          ]
+        ],
+        "expected": [
+          9,
+          2,
+          1
+        ]
+      },
+      {
+        "id": "empty",
+        "args": [
+          []
+        ],
+        "expected": []
+      },
+      {
+        "id": "duplicates",
+        "args": [
+          [
+            3,
+            3,
+            3
+          ]
+        ],
+        "expected": [
+          3
+        ]
+      },
+      {
+        "id": "negative",
+        "args": [
+          [
+            5,
+            -2,
+            5,
+            0
+          ]
+        ],
+        "expected": [
+          5,
+          -2,
+          0
+        ]
+      }
+    ]
+  },
+  "chunk-tail": {
+    "category": "boundary",
+    "prompt": "Chunk a list into sizes up to n; preserve the final partial chunk.",
+    "cases": [
+      {
+        "id": "partial",
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          2
+        ],
+        "expected": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            5
+          ]
+        ]
+      },
+      {
+        "id": "empty",
+        "args": [
+          [],
+          2
+        ],
+        "expected": []
+      },
+      {
+        "id": "exact",
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4
+          ],
+          2
+        ],
+        "expected": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      },
+      {
+        "id": "short",
+        "args": [
+          [
+            1
+          ],
+          4
+        ],
+        "expected": [
+          [
+            1
+          ]
+        ]
+      }
+    ]
+  },
+  "inclusive-range": {
+    "category": "boundary",
+    "prompt": "Return all integers in the closed interval, or empty if inverted.",
+    "cases": [
+      {
+        "id": "negative",
+        "args": [
+          -3,
+          -1
+        ],
+        "expected": [
+          -3,
+          -2,
+          -1
+        ]
+      },
+      {
+        "id": "equal",
+        "args": [
+          0,
+          0
+        ],
+        "expected": [
+          0
+        ]
+      },
+      {
+        "id": "inverted",
+        "args": [
+          3,
+          0
+        ],
+        "expected": []
+      },
+      {
+        "id": "cross-zero",
+        "args": [
+          -1,
+          2
+        ],
+        "expected": [
+          -1,
+          0,
+          1,
+          2
+        ]
+      }
+    ]
+  },
+  "run-length": {
+    "category": "sequence",
+    "prompt": "Return ordered [value,count] rows for consecutive runs.",
+    "cases": [
+      {
+        "id": "separated",
+        "args": [
+          [
+            1,
+            1,
+            2,
+            1
+          ]
+        ],
+        "expected": [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      {
+        "id": "empty",
+        "args": [
+          []
+        ],
+        "expected": []
+      },
+      {
+        "id": "negative",
+        "args": [
+          [
+            3,
+            -1,
+            -1
+          ]
+        ],
+        "expected": [
+          [
+            3,
+            1
+          ],
+          [
+            -1,
+            2
+          ]
+        ]
+      },
+      {
+        "id": "singleton",
+        "args": [
+          [
+            5
+          ]
+        ],
+        "expected": [
+          [
+            5,
+            1
+          ]
+        ]
+      }
+    ]
+  }
+}

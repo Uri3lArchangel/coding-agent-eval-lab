@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "label": "baseline",
+  "source": "scripted",
+  "outcomes": [
+    {
+      "task_id": "stable-unique",
+      "artifact": "stable",
+      "output_tokens": 47,
+      "trace": [
+        "inspect",
+        "edit",
+        "test"
+      ]
+    },
+    {
+      "task_id": "chunk-tail",
+      "artifact": "drop-tail",
+      "output_tokens": 59,
+      "trace": [
+        "inspect",
+        "edit",
+        "test"
+      ]
+    },
+    {
+      "task_id": "inclusive-range",
+      "artifact": "closed",
+      "output_tokens": 71,
+      "trace": [
+        "inspect",
+        "edit",
+        "test"
+      ]
+    },
+    {
+      "task_id": "run-length",
+      "artifact": "sort-first",
+      "output_tokens": 83,
+      "trace": [
+        "inspect",
+        "edit",
+        "test"
+      ]
+    }
+  ],
+  "prompt_id": "minimal-v1"
+}

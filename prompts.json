@@ -1,0 +1,4 @@
+{
+  "minimal-v1": "Implement the requested change: {task} Return an artifact ID, a trace summary, and an output token count.",
+  "contract-first-v2": "Implement the requested change: {task} Preserve existing behavior outside the requested change. Check normal, empty, and boundary inputs. Return an artifact ID only if you have a proposed fix; otherwise use null. Record observed tool events and output tokens."
+}
