@@ -20,3 +20,7 @@ A replay must supply one outcome per known task with a trusted artifact ID (or n
 The machine-readable JSON shows contract failures, absolute counts, paired improvement and regression IDs, and category-specific gates. It fingerprints the suite, prompt library, repair registry, and both run files. Exit codes are 0 (gate passed), 1 (gate failed, report emitted), and 2 (invalid input, no report). Both regression budgets default to zero; optional flags can relax them separately. The zero-regression gate is not an absolute quality bar: a uniformly poor unchanged run may pass it, so inspect counts too.
 
 The tasks and implementations are bundled and visible, not a secret holdout, and are too small for statistical or model-quality claims. They illustrate replayable evaluator engineering, not a benchmark against SWE-bench. The original [SWE-bench harness documentation](https://www.swebench.com/SWE-bench/api/harness/) is useful background on separating repairs from regressions in code evaluation.
+
+## Retrieval evaluation
+
+The [offline retrieval experiment](retrieval/) compares identifier-aware BM25, a local dense vector baseline, and reciprocal-rank fusion over the same files. It reports ranked results, relevance, latency including query encoding, and Python allocation measurements. Its original synthetic fixture checks retrieval behavior separately from the repair replay. It does not measure a pretrained encoder or a coding agent.

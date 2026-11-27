@@ -11,3 +11,7 @@ jobs:
           persist-credentials: false
       - run: python3 -m unittest -v
       - run: python3 eval_lab.py baseline.json candidate.json
+      - name: Check retrieval ranking and reports
+        run: python3 -m unittest discover -s retrieval -v
+      - name: Run offline retrieval CLI
+        run: python3 retrieval/retrieval_lab.py --repeats 2
