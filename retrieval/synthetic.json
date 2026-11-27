@@ -1,0 +1,233 @@
+{
+  "name": "original-synthetic-code-to-file-v1",
+  "documents": [
+    {
+      "path": "queue/lease.py",
+      "text": "def expireLease(clock, reserved):\n    \"\"\"Release a stale worker reservation after its lease deadline.\"\"\"\n    return [job for job in reserved if job.valid_until < clock]"
+    },
+    {
+      "path": "queue/ack.py",
+      "text": "def commitAck(lease_epoch, ack_epoch):\n    \"\"\"Accept job completion only from the current worker reservation.\"\"\"\n    return lease_epoch == ack_epoch"
+    },
+    {
+      "path": "queue/claim.py",
+      "text": "def next_job(ready, worker):\n    \"\"\"Pick the next eligible queue work item and remember its owner.\"\"\"\n    return ready[0].reserve(worker)"
+    },
+    {
+      "path": "queue/retry.py",
+      "text": "def delay_retry(attempt, ceiling):\n    \"\"\"Retry a job at exponentially increasing intervals.\"\"\"\n    return min(ceiling, 2 ** attempt)"
+    },
+    {
+      "path": "cache/expiry.py",
+      "text": "def stale_keys(clock, entries):\n    \"\"\"Remove expired cache entries outside their retention window.\"\"\"\n    return [key for key, record in entries.items() if record.ttl < clock]"
+    },
+    {
+      "path": "cache/keys.py",
+      "text": "def compose_key(tenant, name):\n    \"\"\"Scope a cache key to a tenant.\"\"\"\n    return f\"{tenant}:{name}\""
+    },
+    {
+      "path": "ledger/import_csv.py",
+      "text": "def find_duplicate_rows(records):\n    \"\"\"Reject repeated external IDs when importing settlement CSV records.\"\"\"\n    return len({r.external_id for r in records}) < len(records)"
+    },
+    {
+      "path": "ledger/match.py",
+      "text": "def join_settlements(receipts, charges):\n    \"\"\"Reconcile payment references and amounts only within one currency.\"\"\"\n    return receipts.join(charges, on=[\"currency\", \"reference\"])"
+    },
+    {
+      "path": "ledger/format.py",
+      "text": "def display_amount(minor_units, decimals):\n    \"\"\"Render a currency amount from integral settlement units.\"\"\"\n    return minor_units / (10 ** decimals)"
+    },
+    {
+      "path": "storage/recover.py",
+      "text": "def recoverTail(records):\n    \"\"\"Ignore incomplete final records after interrupted append.\"\"\"\n    return [record for record in records if record.complete]"
+    },
+    {
+      "path": "storage/digest.py",
+      "text": "def check_digest(body, checksum):\n    \"\"\"Verify data integrity on a segment record.\"\"\"\n    return digest(body) == checksum"
+    },
+    {
+      "path": "storage/open.py",
+      "text": "def open_log(path):\n    \"\"\"Open an append journal, acquire its exclusive writer lock, and scan records.\"\"\"\n    return Segment(path, exclusive=True)"
+    },
+    {
+      "path": "auth/permissions.py",
+      "text": "def canViewPost(visibility, owner, viewer):\n    \"\"\"Determine who may read a public or private post.\"\"\"\n    return visibility == \"public\" or owner == viewer"
+    },
+    {
+      "path": "auth/session.py",
+      "text": "def session_owner(cookies):\n    \"\"\"Read the signed session cookie and identify the current account.\"\"\"\n    return verify_cookie(cookies[\"session\"]).owner"
+    },
+    {
+      "path": "trace/filter.ts",
+      "text": "export function matchesSpan(row, traceId) {\n  // Filter request trace entries by correlation identifier.\n  return row.trace === traceId;\n}"
+    },
+    {
+      "path": "trace/import.ts",
+      "text": "export function ingestLogs(stream) {\n  // Consume newline-separated log records in a worker.\n  return stream.pipeThrough(new BoundedLines());\n}"
+    },
+    {
+      "path": "trace/index.ts",
+      "text": "export function seekTime(sorted, time) {\n  // Locate a timestamp with binary search in the sorted trace index.\n  return lowerBound(sorted, time);\n}"
+    },
+    {
+      "path": "build/plan.py",
+      "text": "def make_waves(graph):\n    \"\"\"Topologically group build jobs whose prerequisites are satisfied.\"\"\"\n    return layers(graph)"
+    },
+    {
+      "path": "build/change.py",
+      "text": "def affectedTargets(reverse, changed):\n    \"\"\"Walk reverse dependencies to invalidate incremental build targets.\"\"\"\n    return closure(reverse, changed)"
+    },
+    {
+      "path": "build/cycles.py",
+      "text": "def explain_loop(graph):\n    \"\"\"Display a dependency cycle with a concrete edge witness.\"\"\"\n    return find_cycle(graph)"
+    },
+    {
+      "path": "http/request.py",
+      "text": "def timeout_request(client, url, seconds):\n    \"\"\"Issue an HTTP request with a client deadline.\"\"\"\n    return client.get(url, timeout=seconds)"
+    },
+    {
+      "path": "http/routing.py",
+      "text": "def match_route(path, routes):\n    \"\"\"Select a handler and extract named route parameters.\"\"\"\n    return routes.lookup(path)"
+    },
+    {
+      "path": "ops/health.py",
+      "text": "def is_ready(service):\n    \"\"\"Report healthy readiness when the service and DB are connected.\"\"\"\n    return service.running and service.db.connected"
+    },
+    {
+      "path": "ops/logs.py",
+      "text": "def rotate_logs(directory, maximum):\n    \"\"\"Roll application log files and enforce a retention count.\"\"\"\n    return directory.roll(maximum)"
+    }
+  ],
+  "queries": [
+    {
+      "id": "i1",
+      "text": "expireLease reserved clock",
+      "group": "identifier-rich",
+      "relevant": [
+        "queue/lease.py"
+      ]
+    },
+    {
+      "id": "i2",
+      "text": "commitAck lease_epoch ack_epoch",
+      "group": "identifier-rich",
+      "relevant": [
+        "queue/ack.py"
+      ]
+    },
+    {
+      "id": "i3",
+      "text": "recoverTail storage append",
+      "group": "identifier-rich",
+      "relevant": [
+        "storage/recover.py"
+      ]
+    },
+    {
+      "id": "i4",
+      "text": "canViewPost auth visibility",
+      "group": "identifier-rich",
+      "relevant": [
+        "auth/permissions.py"
+      ]
+    },
+    {
+      "id": "i5",
+      "text": "affectedTargets reverse changed",
+      "group": "identifier-rich",
+      "relevant": [
+        "build/change.py"
+      ]
+    },
+    {
+      "id": "i6",
+      "text": "traceId matchesSpan",
+      "group": "identifier-rich",
+      "relevant": [
+        "trace/filter.ts"
+      ]
+    },
+    {
+      "id": "i7",
+      "text": "reference currency join_settlements",
+      "group": "identifier-rich",
+      "relevant": [
+        "ledger/match.py"
+      ]
+    },
+    {
+      "id": "i8",
+      "text": "trace ingestLogs and seekTime",
+      "group": "identifier-rich",
+      "relevant": [
+        "trace/import.ts",
+        "trace/index.ts"
+      ]
+    },
+    {
+      "id": "p1",
+      "text": "which job owner can finish after a reassignment?",
+      "group": "paraphrase",
+      "relevant": [
+        "queue/ack.py"
+      ]
+    },
+    {
+      "id": "p2",
+      "text": "where is abandoned work freed for another worker?",
+      "group": "paraphrase",
+      "relevant": [
+        "queue/lease.py"
+      ]
+    },
+    {
+      "id": "p3",
+      "text": "how is a half written entry discarded on reboot?",
+      "group": "paraphrase",
+      "relevant": [
+        "storage/recover.py"
+      ]
+    },
+    {
+      "id": "p4",
+      "text": "where do we stop a stranger from opening a restricted message?",
+      "group": "paraphrase",
+      "relevant": [
+        "auth/permissions.py"
+      ]
+    },
+    {
+      "id": "p5",
+      "text": "if I edit an input what gets rebuilt downstream?",
+      "group": "paraphrase",
+      "relevant": [
+        "build/change.py"
+      ]
+    },
+    {
+      "id": "p6",
+      "text": "show the events that belong to a single request",
+      "group": "paraphrase",
+      "relevant": [
+        "trace/filter.ts"
+      ]
+    },
+    {
+      "id": "p7",
+      "text": "match shop receipts to what customers were billed",
+      "group": "paraphrase",
+      "relevant": [
+        "ledger/match.py"
+      ]
+    },
+    {
+      "id": "p8",
+      "text": "handle bad payment batches: repeated IDs and different currencies",
+      "group": "paraphrase",
+      "relevant": [
+        "ledger/import_csv.py",
+        "ledger/match.py"
+      ]
+    }
+  ]
+}
